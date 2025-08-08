@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from . import agent
+import agent
 
 app = FastAPI()
 
@@ -9,10 +9,10 @@ class TextInput(BaseModel):
     action: str  # "translate" hoặc "explain"
 
 @app.post("/agent")
-def process(input: TextInput):
-    if input.action == "translate":
-        return {"result": agent.translate(input.text)}
-    elif input.action == "explain":
-        return {"result": agent.explain(input.text)}
+def process(prompt: TextInput):
+    if prompt.action == "translate":
+        return {"result": agent.translate(prompt.text)}
+    elif prompt.action == "explain":
+        return {"result": agent.explain(prompt.text)}
     else:
         return {"error": "Invalid action"}
