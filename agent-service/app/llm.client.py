@@ -7,7 +7,7 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def call_llm(prompt: str) -> str:
     response = client.chat.completions.create(
-        model="gpt-4",  # hoặc gpt-3.5-turbo
+        model="gpt-4",
         messages=[{"role": "user", "content": prompt}],
         temperature=0.7
     )

@@ -5,8 +5,7 @@ def translate(text: str, to_lang: str = "en") -> str:
     return call_llm(prompt)
 
 def explain(text: str, lang: str = "vi") -> str:
-    prompt = f"""
-Bạn là giáo viên tiếng Anh. Hãy phân tích câu sau, sửa lỗi (nếu có), dịch nghĩa sang tiếng Việt, và giải thích từ vựng.
-Câu: "{text}"
-"""
+    prompt = (f"\n"
+              f"Bạn là giáo viên tiếng Anh. Hãy phân tích câu sau, sửa lỗi (nếu có), dịch nghĩa sang tiếng Việt, và giải thích từ vựng.\n"
+              f"Câu: \"{text}\"\n")
     return call_llm(prompt)

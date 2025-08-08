@@ -6,7 +6,7 @@ app = FastAPI()
 
 class TextInput(BaseModel):
     text: str
-    action: str  # "translate" hoặc "explain"
+    action: str
 
 @app.post("/agent")
 def process(prompt: TextInput):
