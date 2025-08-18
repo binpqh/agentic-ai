@@ -19,14 +19,14 @@ class WhisperService:
         self.q.put(indata.copy())
 
     def listen_and_transcribe(self, block_duration=5):
-        """Lắng nghe mic trong block_duration giây và trả về text"""
+        """Listen to the microphone for block_duration seconds and return the transcribed text"""
         with sd.InputStream(samplerate=self.sample_rate, channels=1, dtype="float32", callback=self._callback):
             audio_frames = []
             for _ in range(int(self.sample_rate / 1024 * block_duration)):
                 audio_frames.append(self.q.get())
             audio_data = np.concatenate(audio_frames, axis=0)
 
-            # Không cần ghi file, load trực tiếp numpy array
+            # No need to write to file, load numpy array directly
             segments, info = self.model.transcribe(audio_data, beam_size=5)
             text_out = " ".join([seg.text for seg in segments]).strip()
             return text_out, info.language
